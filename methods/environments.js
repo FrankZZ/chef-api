@@ -43,15 +43,39 @@ exports.methods = function(config){
             http_methods.get([config.host_url, "environments", environment, "cookbooks", cookbook].join("/"), null, function(err, response){
                 return fn(err, response);
             });
-        }
+        },
+
+		// http://docs.opscode.com/api_chef_server_environments_node.html#get
+		getEnvironmentNodes: function(environment, fn){
+			http_methods.get([config.host_url, "environments", environment, "nodes"].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		},
+
+		// http://docs.opscode.com/api_chef_server_environments_role.html#get
+		getEnvironmentRole: function(environment, role, fn){
+			http_methods.get([config.host_url, "environments", environment, "roles", role].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		},
+
+		// http://docs.opscode.com/api_chef_server_environments_recipe.html#get
+		getEnvironmentRecipes: function(environment, role, fn){
+			http_methods.get([config.host_url, "environments", environment, "recipes"].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		},
+
+		// http://docs.opscode.com/api_chef_server_environments_name.html#delete
+		deleteEnvironment: function(environment, fn){
+			http_methods.del([config.host_url, "environments", environment].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		}
 
         /*
             not yet implemented:
-            http://docs.opscode.com/api_chef_server_environments_name.html#delete
             http://docs.opscode.com/api_chef_server_environments_cookbook_version.html#post
-            http://docs.opscode.com/api_chef_server_environments_node.html#get
-            http://docs.opscode.com/api_chef_server_environments_recipe.html#get
-            http://docs.opscode.com/api_chef_server_environments_role.html#get
         */
     }
 

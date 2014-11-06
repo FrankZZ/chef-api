@@ -23,26 +23,34 @@ exports.methods = function(config){
                 return fn(err, response);
             });
         },
- 
+
         // http://docs.opscode.com/api_chef_server_roles_name.html#delete
         deleteRole: function(role, fn){
              http_methods.del([config.host_url, "roles", role].join("/"), function(err, response){
                  return fn(err, response);
              });
          },
- 
+
          // http://docs.opscode.com/api_chef_server_roles_name.html#put
          editRole: function(role, data, fn){
              http_methods.put([config.host_url, "roles", role].join("/"), null, data, function(err, response){
                  return fn(err, response);
              });
-         }
+         },
 
-        /*
-            not yet implemented:
-            // http://docs.opscode.com/api_chef_server_roles_name_environments.html#get
-            // http://docs.opscode.com/api_chef_server_roles_name_environments_name.html#get
-        */
+		// http://docs.opscode.com/api_chef_server_roles_name.html#get
+		getRoleEnvironment: function(role, environment, fn){
+			http_methods.get([config.host_url, "roles", role, "environments", environment].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		},
+
+		// http://docs.opscode.com/api_chef_server_roles_name_environments.html#get
+		getRoleEnvironments: function(role, fn){
+			http_methods.get([config.host_url, "roles", role, "environments"].join("/"), null, function(err, response){
+				return fn(err, response);
+			});
+		}
     }
 
 }
